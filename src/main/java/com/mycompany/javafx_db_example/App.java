@@ -48,10 +48,13 @@ public class App extends Application {
             System.out.println("| To display all users,   press 'a' |");
             System.out.println("| To insert to the DB,    press 'i' |");
             System.out.println("| To query by name,       press 'q' |");
+            System.out.println("| To delete an user,      press 'd' |");
+            System.out.println("| To Update an user,      press 'u' |");
             System.out.println("| To exit,                press 'e' |");
-            System.out.println("===================================");
+            System.out.println("====================================");
             System.out.print("Enter your choice: ");
             input = scan.next().charAt(0);
+            scan.useDelimiter("\n");
 
             switch (input) {
                 case 'g':
@@ -66,6 +69,7 @@ public class App extends Application {
                     break;
 
                 case 'i':
+                    //Person p;
                     System.out.print("Enter Name: ");
                     String name = scan.next();
                     System.out.print("Enter Email: ");
@@ -74,9 +78,12 @@ public class App extends Application {
                     String phone = scan.next();
                     System.out.print("Enter Address: ");
                     String address = scan.next();
+                    System.out.print("Enter Salary: ");
+                    int salary = scan.nextInt();
                     System.out.print("Enter Password: ");
                     String password = scan.next();
-                    cdbop.insertUser(name, email, phone, address, password); //Your insertUser method
+                     Person p = new Person(name,email,phone,address,salary,password);
+                    cdbop.insertUser(p); //Your insertUser method
                     break;
                 case 'q':
                     System.out.print("Enter the name to query: ");
@@ -85,6 +92,30 @@ public class App extends Application {
                     break;
                 case 'e':
                     System.out.println("Exiting...");
+                    break;
+                    //deletes the user
+                case  'd':
+                    System.out.println("Enter the user email you want to delete: ");
+                    String delete = scan.next();
+                    cdbop.deleteUser(delete);
+                    break;
+                    //update the user info
+                case 'u':
+                    System.out.print("Enter the email of the user you want to update: ");
+                    String userEmail = scan.next();
+                    System.out.print("Enter Name: ");
+                    String updatedName = scan.next();
+                    System.out.print("Enter Phone: ");
+                    String updatedPhone = scan.next();
+                    System.out.print("Enter Address: ");
+                    String updatedAddress = scan.next();
+                    System.out.print("Enter Salary: ");
+                    int updatedSalary = scan.nextInt();
+                    System.out.print("Enter Password: ");
+                    String updatedPassword = scan.next();
+
+                    Person updatedPerson = new Person(updatedName, userEmail, updatedPhone, updatedAddress, updatedSalary, updatedPassword);
+                    cdbop.updateUser(userEmail, updatedPerson);
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
